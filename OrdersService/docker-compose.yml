@@ -1,0 +1,17 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql-server:2022-latest
+    command: sh -c "(curl -sL https://netfree.link/dl/unix-ca.sh | sh ) && export NODE_EXTRA_CA_CERTS=/etc/ca-bundle.crt && npm install && npm start"
+    container_name: orders-sqlserver
+    environment:
+      SA_PASSWORD: YourStrong!Passw0rd
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"
+    networks:
+      - orders-network
+    restart: always
+
+networks:
+  orders-network:
+    driver: bridge
